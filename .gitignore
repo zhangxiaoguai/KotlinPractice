@@ -28,3 +28,4 @@ hs_err_pid*
 
 # User-specific stuff:
 .idea/*
+/com.ericzhang.kotlin/out/
