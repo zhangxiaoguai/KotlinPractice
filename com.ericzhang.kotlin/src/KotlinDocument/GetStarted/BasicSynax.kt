@@ -210,14 +210,13 @@ fun testCollectionFilter() {
     val list = listOf("banana", "apple", "app", "bigger", "zipper", "agent", "ericzhang")
     list
             .filter { it.startsWith("a") }
-            .sortedBy { it }
+            .sortedBy { it }// 按字母顺序排序
+            .map { it.toUpperCase() }
+            .forEach { println(it) }
+
+    list
+            .filter { it.startsWith("a") }
+            .sortedBy { it[2] }// 按第三个字母排序
             .map { it.toUpperCase() }
             .forEach { println(it) }
 }
-
-
-
-
-
-
-
