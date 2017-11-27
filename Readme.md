@@ -338,6 +338,170 @@ val rectangle = Rectangle(5.0, 2.0) //no 'new' keyword required
 val triangle = Triangle(3.0, 4.0, 5.0)
 ```
 
+### 习惯用法
+
+#### 创建DTOs（POJOs/POCOs）
+
+Data Transfer Object，数据传输对象。
+Plain Ordinary Java Object，简单的Java对象，一般指普通JavaBean。
+Plain Ordinary C# Object。
+
+```
+data class Customer(val name: String, val age: Int)
+```
+
+会为 `Customer` 类提供以下功能：
+-- 所有属性的 `getter` （对于 `var` 定义的属性还有 `setter` ）
+-- `equals()`
+-- `hashCode()`
+-- `toString()` 
+-- `copy()`
+-- 所有属性的 `component1()` , `component2()` ……等等。
+
+#### 函数的默认参数
+
+```
+fun foo(val a: Int = 9, val s: String = "haha"){
+	//do sth... 
+}
+```
+
+#### 过滤 list 
+
+```
+val positives = list.filter { x -> x > 0 } 
+```
+
+或者更短：
+
+```
+// 默认参数为it
+val positives = list.filter { it > 0 } 
+```
+
+#### String 内插
+
+```
+println("Name: $name")
+```
+
+#### 类型判断
+
+```
+when (x){
+	is Foo -> // do sth ...
+	is Bar -> // do sth ...
+	else -> // do sth ...
+}
+```
+
+#### 遍历 map/pair 型 list
+
+```
+for((k, v) in map){
+	println("$k -> $v")
+}
+```
+
+`k` 、`v` 可以改成任意名字。 
+
+#### 使用区间
+
+```
+for (i in 1..10) {...} // 闭区间：包含10
+for (i in 1 until 10) { ...... } // 半开区间:不包含10
+for (x in 2..10 step 2) { ...... }
+for (x in 10 downTo 1) { ...... }
+if (x in 1..10) { ...... } 
+```
+
+#### 只读 list
+
+```
+val list = listOf("a", "b", "c")
+```
+
+#### 只读 map
+
+```
+// key 是 a，value 是 1。
+val map = mapOf("a" to 1, "b" to 2, "c" to 3)
+```
+
+#### 访问 map
+
+```
+￼println(map["key"]) 
+map["key"] = value 
+```
+
+#### 延迟属性
+
+```
+val p: String by lazy {
+    // do sth ...
+    "haha"
+}
+```
+
+#### 拓展函数
+
+```
+fun String.spaceToCamelCase() { ...... }
+"Convert this to camelcase".spaceToCamelCase()
+```
+
+#### 创建单例
+
+```
+object Resource {
+	val name = "Name" 
+} 
+```
+
+#### if not null 缩写
+
+```
+val files = File("Test").listFiles()
+println(files?.size)
+```
+
+#### if not null and else 缩写
+
+```
+val files = File("Test").listFiles()
+println(files?.size ?: "empty") 
+```
+
+#### if null 执行代码
+
+```
+val data = ...
+val email = data["email"] ?: throw IllegalStateException("Email is missing!") 
+```
+
+#### if not null 执行代码
+
+```
+val data = ...... 
+data?.let {
+	...... // 代码会执行到此处, 假如data不为null 
+} 
+```
+
+#### 返回 when 表达式
+
+```
+fun transform(color: String): Int {
+	return when(color){
+		"Red" -> 0
+		"Green" -> 1
+		"Blue" -> 2
+		else -> throw IllegalArgumentException("invalid color param value")
+	}
+}
+```
+
 
 [toc]
 
