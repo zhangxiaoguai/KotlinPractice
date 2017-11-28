@@ -431,7 +431,7 @@ val map = mapOf("a" to 1, "b" to 2, "c" to 3)
 #### 访问 map
 
 ```
-￼println(map["key"]) 
+println(map["key"]) 
 map["key"] = value 
 ```
 
@@ -502,7 +502,137 @@ fun transform(color: String): Int {
 }
 ```
 
+#### try/catch 表达式
+
+```
+fun testTryCatch() {
+    val result = try {
+        foo()
+    } catch (e: ArithmeticException) {
+        throw IllegalArgumentException(e)
+    }
+
+    // 使用result
+}
+```
+
+#### if 表达式
+
+```
+fun testIf(param: Int) {
+    val result = if (param == 1) {
+        "one"
+    } else if (param == 2) {
+        "two"
+    } else if (param == 3) {
+        "three"
+    } else {
+        "none"
+    }
+    // do sth ...
+}
+```
+
+#### 返回类型为 Unit 的方法的 Builder 风格用法
+
+```
+// -1的集合
+fun arrayOfMinusOnes(size: Int): IntArray {
+    return IntArray(size).apply { fill(-1) }
+}
+```
+
+#### 单表达式函数
+
+```
+fun theAnswer() = 42 
+```
+
+等价于：
+
+```
+fun theAnswer(): Int {
+	return 42 
+} 
+```
+
+单表达式函数与其他惯用法一起使用能简化代码，例如和 when 表达式一起使用：
+
+```
+fun transform(color: String): Int = when (color){
+	"Red" -> 0
+	"Blue" -> 1
+	"Green" -> 2
+	else -> -1
+}
+```
+
+#### 对一个对象实例调用多个方法（with）
+
+```
+class Turtle { 
+	fun penDown() 
+	fun penUp()
+	fun turn(degrees: Double) 
+	fun forward(pixels: Double) 
+} 
+
+val myTurtle = Turtle()
+with(myTurtle) { // 画一个 100 像素的正方形 
+	penDown()
+	for(i in 1..4) { 
+		forward(100.0)
+		turn(90.0) 
+	} 
+	penUp() 
+} 
+```
+
+#### Java 7 的 try with resources
+
+```
+val stream = Files.newInputStream(Paths.get("/some/file.txt")) 
+stream.buffered().reader().use { 
+	reader -> println(reader.readText()) 
+} 
+```
+
+#### 对于需要泛型信息的泛型函数的适宜形式
+
+```
+// public final class Gson {
+// ...... 
+// public <T> T fromJson(JsonElement json, Class<T> classOfT) throws JsonSyntaxException {
+// ...... 
+inline fun <reified T: Any> Gson.fromJson(json): T = this.fromJson(json, T::class.java) 
+```
+
+#### 使用可空布尔
+
+```
+val b: Boolean? = // do sth ...
+if (b == true) { 
+    // do sth ...
+} else {
+    // `b` 是 false 或者 null 
+    // do sth ...
+} 
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 [toc]
-
-
