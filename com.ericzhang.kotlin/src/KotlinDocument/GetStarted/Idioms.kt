@@ -1,13 +1,12 @@
-package KotlinDocument.GetStarted
-
-import java.io.File
-
-
 /**
  * @author EricZhang
  * @email ericzhangisworking@gmail.com
  * @date 2017/11/27 下午8:32
  */
+package KotlinDocument.GetStarted
+
+import java.io.File
+
 // DTO
 data class Customer(val name: String, val age: Int)
 
